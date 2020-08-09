@@ -18,7 +18,7 @@ const spotifyApi = new SpotifyWebApi({
 
 const scopes = ["user-read-private", "user-read-email"];
 // Create the authorization URL
-const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
+// const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
 
 // console.log("auth url " + authorizeURL);
 
