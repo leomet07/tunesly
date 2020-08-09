@@ -72,6 +72,7 @@ router.get("/get_songs", async (req, res) => {
 			res.send(urls);
 		})
 		.catch((err: any) => {
+			console.log("err ", err);
 			res.json(err);
 		});
 	// try {
