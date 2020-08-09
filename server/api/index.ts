@@ -93,32 +93,32 @@ router.get("/get_songs", async (req, res) => {
 });
 
 router.get("/get_genres", async (req, res) => {
-	// await fetch(
-	// 	"https://api.spotify.com/v1/recommendations/available-genre-seeds",
-	// 	{
-	// 		method: "GET",
-	// 		headers: {
-	// 			accept: "application/json",
-	// 			"content-type": "application/json",
-	// 			authorization: "Bearer " + spotifyApi.getAccessToken(),
-	// 		},
-	// 	}
-	// )
-	// 	.then((response) => {
-	// 		return response.json();
-	// 	})
-	// 	.then((resval: any) => {
-	// 		return res.send(resval.genres);
-	// 	})
-	// 	.catch((err) => {
-	// 		console.error(err);
-	// 	});
-	try {
-		const seeds = await spotifyApi.getAvailableGenreSeeds();
-		res.json(seeds.body.genres);
-	} catch (err) {
-		res.json(err);
-	}
+	await fetch(
+		"https://api.spotify.com/v1/recommendations/available-genre-seeds",
+		{
+			method: "GET",
+			headers: {
+				accept: "application/json",
+				"content-type": "application/json",
+				authorization: "Bearer " + spotifyApi.getAccessToken(),
+			},
+		}
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then((resval: any) => {
+			return res.send(resval.genres);
+		})
+		.catch((err) => {
+			return res.send(err);
+		});
+	// try {
+	// 	const seeds = await spotifyApi.getAvailableGenreSeeds();
+	// 	res.json(seeds.body.genres);
+	// } catch (err) {
+	// 	res.json(err);
+	// }
 });
 
 router.get("/callback", async (req, res) => {
