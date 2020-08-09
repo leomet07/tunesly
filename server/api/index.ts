@@ -70,6 +70,9 @@ router.get("/get_songs", async (req, res) => {
 				return track.external_urls.spotify;
 			});
 			res.send(urls);
+		})
+		.catch((err: any) => {
+			res.json(err);
 		});
 	// try {
 	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
