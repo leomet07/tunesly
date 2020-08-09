@@ -66,11 +66,13 @@ router.get("/get_songs", async (req, res) => {
 			return result.json();
 		})
 		.then((resval: any) => {
-			res.send(resval);
-			// let urls = resval.tracks.map((track: any) => {
-			// 	return track.external_urls.spotify;
-			// });
-			// res.send(urls);
+			if ("error" in resval) {
+				throw new Error(resval.error.message);
+			}
+			let urls = resval.tracks.map((track: any) => {
+				return track.external_urls.spotify;
+			});
+			res.send(urls);
 		})
 		.catch((err: any) => {
 			console.log("err ", err);
