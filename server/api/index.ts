@@ -49,50 +49,50 @@ router.get("/", (req, res) => {
 	res.send("Hello world from API!");
 });
 router.get("/get_songs", async (req, res) => {
-	// console.log(req.query);
-	// let seedGenres = req.query.seed_genres || "acoustic";
-	// let uri =
-	// 	"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
-	// console.log(uri);
-	// await fetch(uri, {
-	// 	method: "GET",
-	// 	headers: {
-	// 		accept: "application/json",
-	// 		"content-type": "application/json",
-	// 		authorization: "Bearer " + spotifyApi.getAccessToken(),
-	// 	},
-	// })
-	// 	.then((result: any) => {
-	// 		return result.json();
-	// 	})
-	// 	.then((resval: any) => {
-	// 		if ("error" in resval) {
-	// 			throw new Error(resval.error.message);
-	// 		}
-	// 		let urls = resval.tracks.map((track: any) => {
-	// 			return track.external_urls.spotify;
-	// 		});
-	// 		res.send(urls);
-	// 	})
-	// 	.catch((err: any) => {
-	// 		console.log("err ", err);
-	// 		res.json(err);
+	console.log(req.query);
+	let seedGenres = req.query.seed_genres || "acoustic";
+	let uri =
+		"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
+	console.log(uri);
+	await fetch(uri, {
+		method: "GET",
+		headers: {
+			accept: "application/json",
+			"content-type": "application/json",
+			authorization: "Bearer " + spotifyApi.getAccessToken(),
+		},
+	})
+		.then((result: any) => {
+			return result.json();
+		})
+		.then((resval: any) => {
+			if ("error" in resval) {
+				throw new Error(resval.error.message);
+			}
+			let urls = resval.tracks.map((track: any) => {
+				return track.external_urls.spotify;
+			});
+			res.send(urls);
+		})
+		.catch((err: any) => {
+			console.log("err ", err);
+			res.json(err);
+		});
+	// try {
+	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
+	// 		"acoustic",
+	// 	];
+	// 	const songs = await spotifyApi.getRecommendations({
+	// 		seedGenres: ["acoustic"],
 	// 	});
-	try {
-		const seedGenres = String(req.query.seed_genres).split(",") || [
-			"acoustic",
-		];
-		const songs = await spotifyApi.getRecommendations({
-			seedGenres: ["acoustic"],
-		});
-		console.log(songs);
-		const urls = songs.body.tracks.map((track: any) => {
-			return track.external_urls.spotify;
-		});
-		res.json(urls);
-	} catch (err) {
-		res.json(err);
-	}
+	// 	console.log(songs);
+	// 	const urls = songs.body.tracks.map((track: any) => {
+	// 		return track.external_urls.spotify;
+	// 	});
+	// 	res.json(urls);
+	// } catch (err) {
+	// 	res.json(err);
+	// }
 });
 
 router.get("/get_genres", async (req, res) => {
