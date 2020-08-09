@@ -7,6 +7,7 @@ dotenv.config();
 // Based off of https://github.com/thelinmichael/spotify-web-api-node
 // @ts-ignore
 import SpotifyWebApi from "spotify-web-api-node";
+// let SpotifyWebApi = require("spotify-web-api-node");
 // credentials are optional
 // let spotifyApi = new SpotifyWebApi({});
 // credentials are optional
@@ -18,9 +19,9 @@ const spotifyApi = new SpotifyWebApi({
 
 const scopes = ["user-read-private", "user-read-email"];
 // Create the authorization URL
-// const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
+const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
 
-// console.log("auth url " + authorizeURL);
+console.log("auth url " + authorizeURL);
 
 if (process.env.access_token && process.env.refresh_token) {
 	console.log("Override token");
@@ -48,77 +49,72 @@ router.get("/", (req, res) => {
 	res.send("Hello world from API!");
 });
 router.get("/get_songs", async (req, res) => {
-	// console.log(req.query);
-	// let seed_genres = req.query.seed_genres || "acoustic";
-	// let uri =
-	// 	"https://api.spotify.com/v1/recommendations?seed_genres=" + seed_genres;
-	// console.log(uri);
-
-	// await fetch(uri, {
-	// 	method: "GET",
-	// 	headers: {
-	// 		accept: "application/json",
-	// 		"content-type": "application/json",
-	// 		authorization: "Bearer " + spotifyApi.getAccessToken(),
-	// 	},
-	// })
-	// 	.then((result: any) => {
-	// 		return result.json();
-	// 	})
-	// 	.then((resval: any) => {
-	// 		let urls = resval.tracks.map(function (track: any) {
-	// 			return track.external_urls.spotify;
-	// 		});
-
-	// 		res.send(urls);
-	// 	});
-	try {
-		const seedGenres = String(req.query.seed_genres).split(",") || [
-			"acoustic",
-		];
-		const songs = await spotifyApi.getRecommendations({
-			seedGenres: ["acoustic"],
-		});
-
-		console.log(songs);
-
-		const urls = songs.body.tracks.map((track: any) => {
-			return track.external_urls.spotify;
-		});
-
-		res.json(urls);
-	} catch (err) {
-		res.json(err);
-	}
-});
-
-router.get("/get_genres", async (req, res) => {
-	await fetch(
-		"https://api.spotify.com/v1/recommendations/available-genre-seeds",
-		{
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				"content-type": "application/json",
-				authorization: "Bearer " + spotifyApi.getAccessToken(),
-			},
-		}
-	)
-		.then((response) => {
-			return response.json();
+	console.log(req.query);
+	let seed_genres = req.query.seed_genres || "acoustic";
+	let uri =
+		"https://api.spotify.com/v1/recommendations?seed_genres=" + seed_genres;
+	console.log(uri);
+	await fetch(uri, {
+		method: "GET",
+		headers: {
+			accept: "application/json",
+			"content-type": "application/json",
+			authorization: "Bearer " + spotifyApi.getAccessToken(),
+		},
+	})
+		.then((result: any) => {
+			return result.json();
 		})
 		.then((resval: any) => {
-			return res.send(resval.genres);
-		})
-		.catch((err) => {
-			return res.send(err);
+			let urls = resval.tracks.map(function (track: any) {
+				return track.external_urls.spotify;
+			});
+			res.send(urls);
 		});
 	// try {
-	// 	const seeds = await spotifyApi.getAvailableGenreSeeds();
-	// 	res.json(seeds.body.genres);
+	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
+	// 		"acoustic",
+	// 	];
+	// 	const songs = await spotifyApi.getRecommendations({
+	// 		seedGenres: ["acoustic"],
+	// 	});
+	// 	console.log(songs);
+	// 	const urls = songs.body.tracks.map((track: any) => {
+	// 		return track.external_urls.spotify;
+	// 	});
+	// 	res.json(urls);
 	// } catch (err) {
 	// 	res.json(err);
 	// }
+});
+
+router.get("/get_genres", async (req, res) => {
+	// await fetch(
+	// 	"https://api.spotify.com/v1/recommendations/available-genre-seeds",
+	// 	{
+	// 		method: "GET",
+	// 		headers: {
+	// 			accept: "application/json",
+	// 			"content-type": "application/json",
+	// 			authorization: "Bearer " + spotifyApi.getAccessToken(),
+	// 		},
+	// 	}
+	// )
+	// 	.then((response) => {
+	// 		return response.json();
+	// 	})
+	// 	.then((resval: any) => {
+	// 		return res.send(resval.genres);
+	// 	})
+	// 	.catch((err) => {
+	// 		console.error(err);
+	// 	});
+	try {
+		const seeds = await spotifyApi.getAvailableGenreSeeds();
+		res.json(seeds.body.genres);
+	} catch (err) {
+		res.json(err);
+	}
 });
 
 router.get("/callback", async (req, res) => {
