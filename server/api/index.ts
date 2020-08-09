@@ -50,9 +50,9 @@ router.get("/", (req, res) => {
 });
 router.get("/get_songs", async (req, res) => {
 	console.log(req.query);
-	let seed_genres = req.query.seed_genres || "acoustic";
+	let seedGenres = req.query.seed_genres || "acoustic";
 	let uri =
-		"https://api.spotify.com/v1/recommendations?seed_genres=" + seed_genres;
+		"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
 	console.log(uri);
 	await fetch(uri, {
 		method: "GET",
@@ -66,7 +66,7 @@ router.get("/get_songs", async (req, res) => {
 			return result.json();
 		})
 		.then((resval: any) => {
-			let urls = resval.tracks.map(function (track: any) {
+			let urls = resval.tracks.map((track: any) => {
 				return track.external_urls.spotify;
 			});
 			res.send(urls);
