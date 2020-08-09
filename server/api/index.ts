@@ -166,6 +166,6 @@ router.get("/login", (req, res) => {
 			"&scope=" +
 			encodeURIComponent(scopesstr) +
 			"&redirect_uri=" +
-			encodeURIComponent("http://127.0.0.1:3000/api/callback")
+			encodeURIComponent(spotifyApi.getRedirectURI())
 	);
 });
