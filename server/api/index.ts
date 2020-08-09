@@ -72,18 +72,24 @@ router.get("/get_songs", async (req, res) => {
 
 	// 		res.send(urls);
 	// 	});
-	const seedGenres = String(req.query.seed_genres).split(",") || ["acoustic"];
-	const songs = await spotifyApi.getRecommendations({
-		seedGenres: ["acoustic"],
-	});
+	try {
+		const seedGenres = String(req.query.seed_genres).split(",") || [
+			"acoustic",
+		];
+		const songs = await spotifyApi.getRecommendations({
+			seedGenres: ["acoustic"],
+		});
 
-	console.log(songs);
+		console.log(songs);
 
-	const urls = songs.body.tracks.map((track: any) => {
-		return track.external_urls.spotify;
-	});
+		const urls = songs.body.tracks.map((track: any) => {
+			return track.external_urls.spotify;
+		});
 
-	res.json(urls);
+		res.json(urls);
+	} catch (err) {
+		res.json(err);
+	}
 });
 
 router.get("/get_genres", async (req, res) => {
