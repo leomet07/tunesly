@@ -107,9 +107,12 @@ router.get("/get_genres", async (req, res) => {
 	// 	.catch((err) => {
 	// 		console.error(err);
 	// 	});
-
-	const seeds = await spotifyApi.getAvailableGenreSeeds();
-	res.json(seeds.body.genres);
+	try {
+		const seeds = await spotifyApi.getAvailableGenreSeeds();
+		res.json(seeds.body.genres);
+	} catch (err) {
+		res.json(err);
+	}
 });
 
 router.get("/callback", async (req, res) => {
