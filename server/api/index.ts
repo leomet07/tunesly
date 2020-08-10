@@ -18,10 +18,6 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 const scopes = ["user-read-private", "user-read-email"];
-// Create the authorization URL
-const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
-
-console.log("auth url " + authorizeURL);
 
 if (process.env.access_token && process.env.refresh_token) {
 	console.log("Override token");
@@ -54,30 +50,23 @@ router.get("/get_songs", async (req, res) => {
 	let uri =
 		"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
 	console.log(uri);
-	await fetch(uri, {
+	let resval: any = await fetch(uri, {
 		method: "GET",
 		headers: {
 			accept: "application/json",
 			"content-type": "application/json",
 			authorization: "Bearer " + spotifyApi.getAccessToken(),
 		},
-	})
-		.then((result: any) => {
-			return result.json();
-		})
-		.then((resval: any) => {
-			if ("error" in resval) {
-				throw new Error(resval.error.message);
-			}
-			let urls = resval.tracks.map((track: any) => {
-				return track.external_urls.spotify;
-			});
-			res.send(urls);
-		})
-		.catch((err: any) => {
-			console.log("err ", err);
-			res.json(err);
-		});
+	});
+	resval = await resval.json();
+
+	if ("error" in resval) {
+		throw new Error(resval.error.message);
+	}
+	let urls = resval.tracks.map((track: any) => {
+		return track.external_urls.spotify;
+	});
+	res.send(urls);
 	// try {
 	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
 	// 		"acoustic",
