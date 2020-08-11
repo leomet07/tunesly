@@ -4,9 +4,13 @@ import * as dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import { router } from "./api/index";
+// @ts-ignore
+import cors from "cors";
 dotenv.config();
 
 const app = express();
+
+app.use(cors()); // Use this after the variable declaration
 
 app.use(helmet());
 app.use(morgan("tiny"));
