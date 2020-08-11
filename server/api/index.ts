@@ -63,9 +63,10 @@ router.get("/get_songs", async (req, res) => {
 	if ("error" in resval) {
 		throw new Error(resval.error.message);
 	}
-	const urls = resval.tracks.map((track: any) => {
-		return track.external_urls.spotify;
-	});
+	// const urls = resval.tracks.map((track: any) => {
+	// 	return track.external_urls.spotify;
+	// });
+	const urls = resval.tracks;
 	res.send(urls);
 	// try {
 	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
