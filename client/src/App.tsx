@@ -1,5 +1,5 @@
 import React from "react";
-
+import Song from "./components/Song";
 import "./App.css";
 
 interface AppState {
@@ -14,7 +14,7 @@ class App extends React.Component<{}, AppState> {
 	async componentDidMount() {
 		console.log("Mounted");
 
-		let res = await fetch("http://localhost:3000/api/get_songs");
+		let res = await fetch(window.BASE_URL + "/api/get_songs");
 
 		res = await res.json();
 		console.log(res, typeof res);
@@ -30,12 +30,13 @@ class App extends React.Component<{}, AppState> {
 			uri = uri[uri.length - 1];
 			return (
 				<div key={uri}>
-					<iframe
+					{/* <iframe
 						src={"https://open.spotify.com/embed/track/" + uri}
 						width="250"
 						height="75"
 						loading="lazy"
-					></iframe>
+					></iframe> */}
+					<Song song={data}> </Song>
 				</div>
 			);
 		});

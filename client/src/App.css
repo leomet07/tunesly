@@ -2,9 +2,7 @@
 	text-align: center;
 }
 
-
-
 #songs {
-	display: flex;
+	display: inline-block;
 	flex-wrap: wrap;
 }
