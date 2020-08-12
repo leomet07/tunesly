@@ -14,7 +14,7 @@ class App extends React.Component<{}, AppState> {
 	async componentDidMount() {
 		console.log("Mounted");
 
-		let res = await fetch(window.BASE_URL + "/api/get_songs");
+		let res = await fetch(window.global.BASE_URL + "/api/get_songs");
 
 		res = await res.json();
 		console.log(res, typeof res);
