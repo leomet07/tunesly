@@ -11,3 +11,5 @@ build/
 .firebase/
 
 .firebasrc/
+
+*.log
