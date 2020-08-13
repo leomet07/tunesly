@@ -18,7 +18,7 @@ let spotifyApi = new SpotifyWebApi({
 });
 
 // Refreshal of token
-setInterval(function () {
+setInterval(() => {
 	console.log("called");
 	spotifyApi = new SpotifyWebApi({
 		clientId: process.env.clientId,
