@@ -43,8 +43,11 @@ class App extends React.Component<{}, AppState> {
 
 		return (
 			<div className="App">
-				<h1>Playlist generator</h1>
-				<div id="songs">{songItems}</div>
+				<main id="container">
+					<h1>Playlist generator</h1>
+
+					<div id="songs">{songItems}</div>
+				</main>
 			</div>
 		);
 	}

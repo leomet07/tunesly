@@ -44,7 +44,8 @@ const time = 5 * 60 * 1000;
 
 // Refreshal of token
 console.log(spotifyApi.getAccessToken());
-setInterval(async () => {
+
+async function refrshToken() {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
 	spotifyApi.refreshAccessToken().then(
 		(data: any) => {
@@ -60,8 +61,10 @@ setInterval(async () => {
 			console.log("Could not refresh access token", err);
 		}
 	);
-}, time); // 5 min
+}
+setInterval(refrshToken, time); // 5 min
 
+refrshToken();
 export const router = express.Router();
 
 router.get("/", (req, res) => {
