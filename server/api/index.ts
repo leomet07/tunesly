@@ -11,11 +11,21 @@ import SpotifyWebApi from "spotify-web-api-node";
 // credentials are optional
 // let spotifyApi = new SpotifyWebApi({});
 // credentials are optional
-const spotifyApi = new SpotifyWebApi({
+let spotifyApi = new SpotifyWebApi({
 	clientId: process.env.clientId,
 	clientSecret: process.env.clientSecret,
 	redirectUri: process.env.redirectUri,
 });
+
+// Refreshal of token
+setInterval(function () {
+	console.log("called");
+	spotifyApi = new SpotifyWebApi({
+		clientId: process.env.clientId,
+		clientSecret: process.env.clientSecret,
+		redirectUri: process.env.redirectUri,
+	});
+}, 5 * 60 * 1000); // 5 min
 
 const scopes = ["user-read-private", "user-read-email"];
 
