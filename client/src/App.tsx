@@ -1,20 +1,32 @@
 import React from "react";
 import Song from "./components/Song";
 import "./App.css";
+import genres from "./genres.json";
+
+console.log(genres);
 
 interface AppState {
 	songs: any;
+	test: string;
 }
 class App extends React.Component<{}, AppState> {
 	constructor(props: any) {
 		super(props);
 		// Don't call this.setState() here!
-		this.state = { songs: [] };
+		this.state = { songs: [], test: "test" };
+
+		this.get_songs = this.get_songs.bind(this);
 	}
 	async componentDidMount() {
 		console.log("Mounted");
 
-		let res = await fetch(window.global.BASE_URL + "/api/get_songs");
+		this.get_songs();
+	}
+
+	async get_songs(songs: any = "rock") {
+		// @ts-ignore
+		const uri = window.global.BASE_URL + "/api/get_songs" + "?" + songs;
+		let res = await fetch(uri);
 
 		res = await res.json();
 		console.info(res);
@@ -22,6 +34,17 @@ class App extends React.Component<{}, AppState> {
 		this.setState({ songs: res });
 	}
 
+	changeGenre = async (e: any) => {
+		e.preventDefault();
+
+		let genre = document.getElementById("genres");
+		// @ts-ignore
+		genre = String(genre.value);
+
+		console.log("Genre chanegd", genre);
+
+		this.get_songs(genre);
+	};
 	render() {
 		const songItems = this.state.songs.map((data: any) => {
 			let uri = data.external_urls.spotify;
@@ -41,9 +64,29 @@ class App extends React.Component<{}, AppState> {
 			);
 		});
 
+		const options = genres.map((data: string) => {
+			const dataTitle = data.charAt(0).toUpperCase() + data.slice(1);
+			return (
+				<option key={data} value={data}>
+					{dataTitle}
+				</option>
+			);
+		});
+
 		return (
 			<div className="App">
 				<main id="container">
+					<form
+						id="genre_select"
+						action="#"
+						onSubmit={this.changeGenre}
+					>
+						<label>Choose a genre:</label>
+						<select id="genres" name="genres">
+							{options}
+						</select>
+						<input type="submit" />
+					</form>
 					<h1>Playlist generator</h1>
 
 					<div id="songs">{songItems}</div>

@@ -13,3 +13,8 @@
 .song_name {
 	color: black;
 }
+
+#genre_select {
+	font-size: 26px;
+
+}

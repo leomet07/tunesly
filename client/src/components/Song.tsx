@@ -10,7 +10,7 @@ class Song extends React.Component<{ song: any }, AppState> {
 
 	render() {
 		const img_uri = this.props.song.album.images[1].url;
-		console.log(img_uri);
+
 		let artist_str = "By: ";
 
 		// remove duplicates
