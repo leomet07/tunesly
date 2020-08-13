@@ -17,7 +17,7 @@ class App extends React.Component<{}, AppState> {
 		let res = await fetch(window.global.BASE_URL + "/api/get_songs");
 
 		res = await res.json();
-		console.log(res, typeof res);
+		console.info(res);
 
 		this.setState({ songs: res });
 	}
@@ -40,9 +40,10 @@ class App extends React.Component<{}, AppState> {
 				</div>
 			);
 		});
+
 		return (
 			<div className="App">
-				<h1>Epic</h1>
+				<h1>Playlist generator</h1>
 				<div id="songs">{songItems}</div>
 			</div>
 		);

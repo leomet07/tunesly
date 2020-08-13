@@ -3,6 +3,10 @@
 }
 
 #songs {
-	display: inline-block;
+	display: flex;
 	flex-wrap: wrap;
+}
+
+.song_name {
+	color: black;
 }

@@ -5,3 +5,9 @@ dist/
 .env
 
 *.mp3
+
+build/
+
+.firebase/
+
+.firebasrc/
