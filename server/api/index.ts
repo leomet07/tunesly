@@ -17,16 +17,6 @@ let spotifyApi = new SpotifyWebApi({
 	redirectUri: process.env.redirectUri,
 });
 
-// Refreshal of token
-setInterval(() => {
-	console.log("called");
-	spotifyApi = new SpotifyWebApi({
-		clientId: process.env.clientId,
-		clientSecret: process.env.clientSecret,
-		redirectUri: process.env.redirectUri,
-	});
-}, 5 * 60 * 1000); // 5 min
-
 const scopes = ["user-read-private", "user-read-email"];
 
 if (process.env.access_token && process.env.refresh_token) {
@@ -46,8 +36,31 @@ if (process.env.access_token && process.env.refresh_token) {
 		}
 	);
 }
+
 // Get all credentials
 console.log("The credentials are ", spotifyApi.getCredentials());
+
+let time = 5 * 60 * 1000;
+
+// Refreshal of token
+console.log(spotifyApi.getAccessToken());
+setInterval(async () => {
+	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
+	spotifyApi.refreshAccessToken().then(
+		function (data: any) {
+			console.log(
+				"The access token has been refreshed!",
+				data.body["access_token"]
+			);
+
+			// Save the access token so that it's used in future calls
+			spotifyApi.setAccessToken(data.body["access_token"]);
+		},
+		function (err: any) {
+			console.log("Could not refresh access token", err);
+		}
+	);
+}, time); // 5 min
 
 export const router = express.Router();
 
@@ -55,7 +68,7 @@ router.get("/", (req, res) => {
 	res.send("Hello world from API!");
 });
 router.get("/get_songs", async (req, res) => {
-	console.log(req.query);
+	console.log(req.query, spotifyApi.getAccessToken());
 	const seedGenres = req.query.seed_genres || "acoustic";
 	const uri =
 		"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
