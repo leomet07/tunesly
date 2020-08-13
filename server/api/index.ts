@@ -11,7 +11,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 // credentials are optional
 // let spotifyApi = new SpotifyWebApi({});
 // credentials are optional
-let spotifyApi = new SpotifyWebApi({
+const spotifyApi = new SpotifyWebApi({
 	clientId: process.env.clientId,
 	clientSecret: process.env.clientSecret,
 	redirectUri: process.env.redirectUri,
@@ -40,23 +40,23 @@ if (process.env.access_token && process.env.refresh_token) {
 // Get all credentials
 console.log("The credentials are ", spotifyApi.getCredentials());
 
-let time = 5 * 60 * 1000;
+const time = 5 * 60 * 1000;
 
 // Refreshal of token
 console.log(spotifyApi.getAccessToken());
 setInterval(async () => {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
 	spotifyApi.refreshAccessToken().then(
-		function (data: any) {
+		(data: any) => {
 			console.log(
 				"The access token has been refreshed!",
-				data.body["access_token"]
+				data.body.access_token
 			);
 
 			// Save the access token so that it's used in future calls
-			spotifyApi.setAccessToken(data.body["access_token"]);
+			spotifyApi.setAccessToken(data.body.access_token);
 		},
-		function (err: any) {
+		(err: any) => {
 			console.log("Could not refresh access token", err);
 		}
 	);
