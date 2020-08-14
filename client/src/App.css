@@ -1,20 +1,62 @@
-.App {
+#menu-nav {
+
+	margin-top: 0;
+	background-color: #ecf0f1;
+	border-radius: 4px;
+
+	margin: 0;
+}
+
+#navigation-bar ul {
+	border-radius: 4px;
+	overflow: hidden;
+	margin: 0;
+}
+
+#navigation-bar li {
+	float: left;
+	width: 10%;
+	margin-right: 10%;
+}
+
+#navigation-bar li:hover a::before {
+	right: 0;
+	left: 0;
+}
+
+#navigation-bar a {
+	color: #848484;
+	font-size: 17px;
+	text-decoration: none;
 	text-align: center;
+	padding: 10px 0;
+	display: block;
+	position: relative;
+	transition: all 0.3s ease;
 }
 
-#songs {
-	display: grid;
-	/* flex-wrap: wrap; */
-	gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
-	padding: auto;
+#navigation-bar a:hover {
+	color: #e74c3c;
+	margin: 0;
 }
 
-.song_name {
-	color: black;
+#navigation-bar a::before {
+	content: "";
+	transition: all 0.4s ease-in-out;
+	position: absolute;
+	right: 50%;
+	left: 50%;
+	bottom: 0;
+	height: 2px;
+	background-color: #e74c3c;
+	margin: 0;
 }
 
-#genre_select {
-	font-size: 26px;
+#navigation-bar a:hover::before {
+	right: 0;
+	left: 0;
+}
 
+li {
+	list-style: none;
 }
