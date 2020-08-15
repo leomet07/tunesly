@@ -10,6 +10,7 @@ interface AppState {
 	test: string;
 }
 class App extends React.Component<{}, AppState> {
+	// eslint-disable-next-line
 	constructor(props: any) {
 		super(props);
 	}

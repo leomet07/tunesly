@@ -23,7 +23,7 @@ class Home extends React.Component<{}, AppState> {
 	}
 
 	async get_songs(songs: any = "rock") {
-		// @ts-ignore
+		// eslint-disable-next-line
 		const uri = window.global.BASE_URL + "/api/get_songs" + "?" + songs;
 		let res = await fetch(uri);
 
