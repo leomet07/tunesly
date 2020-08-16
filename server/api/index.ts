@@ -19,7 +19,7 @@ const spotifyApi = new SpotifyWebApi({
 
 const scopes = ["user-read-private", "user-read-email"];
 
-if (process.env.access_token && process.env.refresh_token) {
+if (process.env.refresh_token) {
 	console.log("Override token");
 	spotifyApi.setAccessToken(process.env.access_token);
 	spotifyApi.setRefreshToken(process.env.refresh_token);
