@@ -41,7 +41,7 @@ if (process.env.access_token && process.env.refresh_token) {
 console.log("The credentials are ", spotifyApi.getCredentials());
 
 // const time = 5 * 60 * 1000;
-const time = 2 * 1000 || process.env.PORT;
+const time: number = 2 * 1000 || Number(process.env.TIME);
 
 // Refreshal of token
 console.log(spotifyApi.getAccessToken());
