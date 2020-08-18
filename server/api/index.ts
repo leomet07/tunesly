@@ -82,12 +82,12 @@ router.get("/get_songs", async (req, res) => {
 	console.log(req.query, spotifyApi.getAccessToken());
 
 	// Use genre as base
-	let routeParams: { [key: string]: any } = {
+	const routeParams: { [key: string]: any } = {
 		seed_genres: req.query.seed_genres || "acoustic",
 	};
 
 	if (req.query.artist_name) {
-		let response: any = await fetch(
+		const response: any = await fetch(
 			"https://api.spotify.com/v1/search?q=Trevor%20Daniel&type=artist",
 			{
 				method: "GET",
@@ -100,19 +100,18 @@ router.get("/get_songs", async (req, res) => {
 			}
 		);
 
-		let json: any = await response.json();
+		const json: any = await response.json();
 
-		const artist_genres: Array<string> = json.artists.items[0].genres;
+		const artistGenres: string[] = json.artists.items[0].genres;
 
-		const uri_artist_genres: string = "," + artist_genres.join(",");
-		routeParams["seed_genres"] =
-			routeParams["seed_genres"] + uri_artist_genres;
+		const uriArtistGenres: string = "," + artistGenres.join(",");
+		routeParams.seed_genres = routeParams.seed_genres + uriArtistGenres;
 
-		const artist_id: string = json.artists.items[0].id;
-		routeParams["seed_artists"] = artist_id;
+		const artistId: string = json.artists.items[0].id;
+		routeParams.seed_artists = artistId;
 	}
 
-	let uri: string =
+	const uri: string =
 		"https://api.spotify.com/v1/recommendations?" +
 		convert_uri(routeParams);
 	console.log(uri);
