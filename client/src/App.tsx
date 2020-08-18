@@ -16,19 +16,24 @@ class App extends React.Component<{}, AppState> {
 	}
 
 	render() {
+		// eslint-disable-next-line
+
 		return (
 			<Router>
-				<div id="menu-nav">
-					<div id="navigation-bar">
-						<ul className="navbar">
-							<li>
-								<Link to="/">Home</Link>
-							</li>
-							<li>
-								<Link to="/about">About</Link>
-							</li>
-						</ul>
-					</div>
+				<div id="nav">
+					<span>
+						<Link className="link" to="/">
+							Home
+						</Link>
+					</span>
+					&nbsp;|&nbsp;
+					<span>
+						<Link className="link" to="/about">
+							About
+						</Link>
+					</span>
+					<span></span>
+					<span></span>
 				</div>
 				<Switch>
 					<Route exact path="/">

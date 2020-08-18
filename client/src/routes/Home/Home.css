@@ -10,11 +10,34 @@
 	padding: auto;
 }
 
-.song_name {
-	color: black;
+.title {
+	text-align: center;
+	margin-bottom: 50px;
 }
 
 #genre_select {
 	font-size: 26px;
-
+	/* border: 1px solid black; */
+	width: 300px;
+	margin: auto;
+	padding-top: 0;
 }
+
+#genre_select select {
+	font-size: 1rem;
+	border: 1px solid black;
+	padding-left: 3px;
+}
+
+#genre_select .label {
+	margin: 0;
+}
+
+
+#genre_select .submit {
+	font-size: 1rem;
+	border: 1px solid black;
+	padding: 7px 7px 7px 7px;
+}
+
+#genres {}

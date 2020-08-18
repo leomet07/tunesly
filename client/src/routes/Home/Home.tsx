@@ -75,18 +75,19 @@ class Home extends React.Component<{}, AppState> {
 		return (
 			<div className="App">
 				<main id="container">
+					<h1 className="title">Playlist generator</h1>
 					<form
 						id="genre_select"
 						action="#"
 						onSubmit={this.changeGenre}
 					>
-						<label>Choose a genre:</label>
+						<h5 className="label">Choose a genre:</h5>
 						<select id="genres" name="genres">
 							{options}
 						</select>
-						<input type="submit" />
+						<br />
+						<input className="submit" type="submit" />
 					</form>
-					<h1>Playlist generator</h1>
 
 					<div id="songs">{songItems}</div>
 				</main>
