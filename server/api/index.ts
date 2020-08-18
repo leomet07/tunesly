@@ -41,19 +41,19 @@ if (process.env.refresh_token) {
 console.log("The credentials are ", spotifyApi.getCredentials());
 
 // const time = 5 * 60 * 1000;
-const time: number = 2 * 1000 || Number(process.env.TIME);
+const time: number = Number(process.env.TIME) || 2 * 1000;
 
 // Refreshal of token
-console.log(spotifyApi.getAccessToken());
+// console.log(spotifyApi.getAccessToken());
 
 async function refrshToken() {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
 	spotifyApi.refreshAccessToken().then(
 		(data: any) => {
-			console.log(
-				"The access token has been refreshed!",
-				data.body.access_token
-			);
+			// console.log(
+			// 	"The access token has been refreshed!",
+			// 	data.body.access_token
+			// );
 
 			// Save the access token so that it's used in future calls
 			spotifyApi.setAccessToken(data.body.access_token);
@@ -71,11 +71,50 @@ export const router = express.Router();
 router.get("/", (req, res) => {
 	res.send("Hello world from API!");
 });
+
+function convert_uri(params: any) {
+	// convert objec to a query string
+	return Object.keys(params)
+		.map((key) => `${key}=${params[key]}`)
+		.join("&");
+}
 router.get("/get_songs", async (req, res) => {
 	console.log(req.query, spotifyApi.getAccessToken());
-	const seedGenres = req.query.seed_genres || "acoustic";
-	const uri =
-		"https://api.spotify.com/v1/recommendations?seed_genres=" + seedGenres;
+
+	// Use genre as base
+	let routeParams: { [key: string]: any } = {
+		seed_genres: req.query.seed_genres || "acoustic",
+	};
+
+	if (req.query.artist_name) {
+		let response: any = await fetch(
+			"https://api.spotify.com/v1/search?q=Trevor%20Daniel&type=artist",
+			{
+				method: "GET",
+				headers: {
+					accept: "application/json",
+					"content-type": "application/json",
+					authorization:
+						"Bearer BQBjFTbOQG3uuOzLPn91Orplrwn3-H04qOM6bkk6o2iUNdRMEzhq0FNaq2YF67ifLeaBTsSpYbsW_lUNM-_qbY_TYYJjTPO2ew1ePzZ8P6XvbL-wk_fTqbPJ2sRH3GrQa31Hf24cSpfbLj5MPnjajekdCMtRRrAwn5Ipz9VPZ6UfDoYAoA",
+				},
+			}
+		);
+
+		let json: any = await response.json();
+
+		const artist_genres: Array<string> = json.artists.items[0].genres;
+
+		const uri_artist_genres: string = "," + artist_genres.join(",");
+		routeParams["seed_genres"] =
+			routeParams["seed_genres"] + uri_artist_genres;
+
+		const artist_id: string = json.artists.items[0].id;
+		routeParams["seed_artists"] = artist_id;
+	}
+
+	let uri: string =
+		"https://api.spotify.com/v1/recommendations?" +
+		convert_uri(routeParams);
 	console.log(uri);
 	let resval: any = await fetch(uri, {
 		method: "GET",
@@ -90,26 +129,9 @@ router.get("/get_songs", async (req, res) => {
 	if ("error" in resval) {
 		throw new Error(resval.error.message);
 	}
-	// const urls = resval.tracks.map((track: any) => {
-	// 	return track.external_urls.spotify;
-	// });
+
 	const urls = resval.tracks;
 	res.send(urls);
-	// try {
-	// 	const seedGenres = String(req.query.seed_genres).split(",") || [
-	// 		"acoustic",
-	// 	];
-	// 	const songs = await spotifyApi.getRecommendations({
-	// 		seedGenres: ["acoustic"],
-	// 	});
-	// 	console.log(songs);
-	// 	const urls = songs.body.tracks.map((track: any) => {
-	// 		return track.external_urls.spotify;
-	// 	});
-	// 	res.json(urls);
-	// } catch (err) {
-	// 	res.json(err);
-	// }
 });
 
 router.get("/get_genres", async (req, res) => {
