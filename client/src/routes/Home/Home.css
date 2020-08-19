@@ -16,7 +16,7 @@
 }
 
 
-.specification {
+.spec_choose {
 	font-size: 26px;
 	/* border: 1px solid black; */
 	width: 300px;
@@ -71,4 +71,11 @@
 
 input:focus {
 	outline: none;
+}
+
+#specification {
+	padding: 6px;
+	display: flex;
+	flex-wrap: wrap;
+
 }

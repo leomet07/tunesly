@@ -79,24 +79,29 @@ class Home extends React.Component<{}, AppState> {
 			<div className="App">
 				<main id="container">
 					<h1 className="title">Playlist generator</h1>
-					<form
-						id="genre_select"
-						className="specification"
-						action="#"
-					>
-						<h5 className="label">Choose a genre:</h5>
-						<select
-							onChange={this.changeGenre}
-							id="genres"
-							name="genres"
+					<div id="specification">
+						<form
+							id="genre_select"
+							className="spec_choose"
+							action="#"
 						>
-							{options}
-						</select>
-						<br />
-					</form>
-					<div className="specification" id="artist_name">
-						<h5 className="label">Enter an artist's name</h5>
-						<input onChange={this.changeArtist} type="text"></input>
+							<h5 className="label">Choose a genre:</h5>
+							<select
+								onChange={this.changeGenre}
+								id="genres"
+								name="genres"
+							>
+								{options}
+							</select>
+							<br />
+						</form>
+						<div className="spec_choose" id="artist_name">
+							<h5 className="label">Enter an artist's name</h5>
+							<input
+								onChange={this.changeArtist}
+								type="text"
+							></input>
+						</div>
 					</div>
 					<button id="generate" onClick={this.get_songs}>
 						Generate Playlist!

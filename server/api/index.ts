@@ -80,7 +80,7 @@ function convert_uri(params: any) {
 }
 router.get("/get_songs", async (req, res) => {
 	console.log(req.query, spotifyApi.getAccessToken());
-	let seedGenres = req.query.seed_genres || "acoustic";
+	const seedGenres = req.query.seed_genres || "acoustic";
 	// Use genre as base
 	const routeParams: { [key: string]: any } = {
 		seed_genres: seedGenres,
