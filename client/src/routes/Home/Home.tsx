@@ -6,15 +6,14 @@ console.log(genres);
 
 interface AppState {
 	songs: any;
-	test: string;
+	current_genre: string | null;
+	current_artist: string | null;
 }
 class Home extends React.Component<{}, AppState> {
 	constructor(props: any) {
 		super(props);
 		// Don't call this.setState() here!
-		this.state = { songs: [], test: "test" };
-
-		this.get_songs = this.get_songs.bind(this);
+		this.state = { songs: [], current_genre: null, current_artist: null };
 	}
 	async componentDidMount() {
 		console.log("Mounted");
@@ -22,27 +21,37 @@ class Home extends React.Component<{}, AppState> {
 		this.get_songs();
 	}
 
-	async get_songs(songs: any = "rock") {
+	get_songs = async () => {
 		// eslint-disable-next-line
-		const uri = window.global.BASE_URL + "/api/get_songs" + "?" + songs;
+		let uri = window.global.BASE_URL + "/api/get_songs?";
+		if (this.state.current_genre) {
+			uri = uri + "seed_genres=" + this.state.current_genre + "&";
+		}
+		if (this.state.current_artist) {
+			uri = uri + "artist_name=" + this.state.current_artist + "&";
+			console.log("artist  found", uri);
+		}
 		let res = await fetch(uri);
 
 		res = await res.json();
 		console.info(res);
 
 		this.setState({ songs: res });
-	}
+	};
 
 	changeGenre = async (e: any) => {
-		e.preventDefault();
-
-		let genre = document.getElementById("genres");
 		// @ts-ignore
-		genre = String(genre.value);
+		let genre = String(e.target.value);
 
 		console.log("Genre chanegd", genre);
 
-		this.get_songs(genre);
+		this.setState({ current_genre: genre });
+	};
+	changeArtist = async (e: any) => {
+		// @ts-ignore
+		let artist = String(e.target.value);
+
+		this.setState({ current_artist: artist });
 	};
 	render() {
 		const songItems = this.state.songs.map((data: any) => {
@@ -52,12 +61,6 @@ class Home extends React.Component<{}, AppState> {
 			uri = uri[uri.length - 1];
 			return (
 				<div key={uri}>
-					{/* <iframe
-						src={"https://open.spotify.com/embed/track/" + uri}
-						width="250"
-						height="75"
-						loading="lazy"
-					></iframe> */}
 					<Song song={data}> </Song>
 				</div>
 			);
@@ -78,17 +81,26 @@ class Home extends React.Component<{}, AppState> {
 					<h1 className="title">Playlist generator</h1>
 					<form
 						id="genre_select"
+						className="specification"
 						action="#"
-						onSubmit={this.changeGenre}
 					>
 						<h5 className="label">Choose a genre:</h5>
-						<select id="genres" name="genres">
+						<select
+							onChange={this.changeGenre}
+							id="genres"
+							name="genres"
+						>
 							{options}
 						</select>
 						<br />
-						<input className="submit" type="submit" />
 					</form>
-
+					<div className="specification" id="artist_name">
+						<h5 className="label">Enter an artist's name</h5>
+						<input onChange={this.changeArtist} type="text"></input>
+					</div>
+					<button id="generate" onClick={this.get_songs}>
+						Generate Playlist!
+					</button>
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>

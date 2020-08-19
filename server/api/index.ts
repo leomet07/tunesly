@@ -50,10 +50,10 @@ async function refrshToken() {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
 	spotifyApi.refreshAccessToken().then(
 		(data: any) => {
-			// console.log(
-			// 	"The access token has been refreshed!",
-			// 	data.body.access_token
-			// );
+			console.log(
+				"The access token has been refreshed!",
+				data.body.access_token
+			);
 
 			// Save the access token so that it's used in future calls
 			spotifyApi.setAccessToken(data.body.access_token);
@@ -80,22 +80,23 @@ function convert_uri(params: any) {
 }
 router.get("/get_songs", async (req, res) => {
 	console.log(req.query, spotifyApi.getAccessToken());
-
+	let seedGenres = req.query.seed_genres || "acoustic";
 	// Use genre as base
 	const routeParams: { [key: string]: any } = {
-		seed_genres: req.query.seed_genres || "acoustic",
+		seed_genres: seedGenres,
 	};
 
 	if (req.query.artist_name) {
 		const response: any = await fetch(
-			"https://api.spotify.com/v1/search?q=Trevor%20Daniel&type=artist",
+			"https://api.spotify.com/v1/search?q=" +
+				req.query.artist_name +
+				"&type=artist",
 			{
 				method: "GET",
 				headers: {
 					accept: "application/json",
 					"content-type": "application/json",
-					authorization:
-						"Bearer BQBjFTbOQG3uuOzLPn91Orplrwn3-H04qOM6bkk6o2iUNdRMEzhq0FNaq2YF67ifLeaBTsSpYbsW_lUNM-_qbY_TYYJjTPO2ew1ePzZ8P6XvbL-wk_fTqbPJ2sRH3GrQa31Hf24cSpfbLj5MPnjajekdCMtRRrAwn5Ipz9VPZ6UfDoYAoA",
+					authorization: "Bearer " + spotifyApi.getAccessToken(),
 				},
 			}
 		);
@@ -110,7 +111,7 @@ router.get("/get_songs", async (req, res) => {
 		const artistId: string = json.artists.items[0].id;
 		routeParams.seed_artists = artistId;
 	}
-
+	console.log(routeParams);
 	const uri: string =
 		"https://api.spotify.com/v1/recommendations?" +
 		convert_uri(routeParams);
@@ -134,26 +135,6 @@ router.get("/get_songs", async (req, res) => {
 });
 
 router.get("/get_genres", async (req, res) => {
-	// await fetch(
-	// 	"https://api.spotify.com/v1/recommendations/available-genre-seeds",
-	// 	{
-	// 		method: "GET",
-	// 		headers: {
-	// 			accept: "application/json",
-	// 			"content-type": "application/json",
-	// 			authorization: "Bearer " + spotifyApi.getAccessToken(),
-	// 		},
-	// 	}
-	// )
-	// 	.then((response) => {
-	// 		return response.json();
-	// 	})
-	// 	.then((resval: any) => {
-	// 		return res.send(resval.genres);
-	// 	})
-	// 	.catch((err) => {
-	// 		console.error(err);
-	// 	});
 	try {
 		const seeds = await spotifyApi.getAvailableGenreSeeds();
 		res.json(seeds.body.genres);
@@ -163,26 +144,6 @@ router.get("/get_genres", async (req, res) => {
 });
 
 router.get("/callback", async (req, res) => {
-	// let response_json = null;
-	// console.log("callback recieved", req);
-	// let body: any = {
-	// 	grant_type: "authorization_code",
-	// 	code: req.query.code,
-	// 	redirect_uri: process.env.redirectUri,
-	// };
-	// await fetch("https://accounts.spotify.com/api/token", {
-	// 	method: "POST",
-	// 	body: body,
-	// 	headers: {
-	// 		Authorization: "Basic " + process.env.clientId,
-	// 	},
-	// })
-	// 	.then((result) => result.text())
-	// 	.then((result) => {
-	// 		console.log("result", result);
-	// 		return res.json(result);
-	// 	});
-
 	// Retrieve an access token and a refresh token
 	spotifyApi.authorizationCodeGrant(req.query.code).then(
 		(data: any) => {

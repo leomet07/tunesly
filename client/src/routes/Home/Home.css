@@ -15,7 +15,8 @@
 	margin-bottom: 50px;
 }
 
-#genre_select {
+
+.specification {
 	font-size: 26px;
 	/* border: 1px solid black; */
 	width: 300px;
@@ -23,13 +24,15 @@
 	padding-top: 0;
 }
 
+#genre_select {}
+
 #genre_select select {
 	font-size: 1rem;
 	border: 1px solid black;
 	padding-left: 3px;
 }
 
-#genre_select .label {
+.label {
 	margin: 0;
 }
 
@@ -41,3 +44,31 @@
 }
 
 #genres {}
+
+#generate {
+	font-size: 17px;
+	color: white;
+	background-color: #007Bff;
+	border: none;
+	border-radius: 5px;
+	margin: 5px;
+	padding: 10px 10px 10px 10px;
+
+}
+
+
+.btn-secondary {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d
+}
+
+#artist_name input[type='text'] {
+	margin: 0;
+	font-size: 16px;
+	border: 1px solid black;
+}
+
+input:focus {
+	outline: none;
+}
