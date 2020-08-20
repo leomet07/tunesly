@@ -189,12 +189,38 @@ async function createPlaylist(name: string) {
 	return data;
 }
 
+async function addToPlaylist(playlistId: string, songId: string) {
+	let uri =
+		"https://api.spotify.com/v1/playlists/" +
+		playlistId +
+		"/tracks?uris=spotify:track:" +
+		songId;
+	let response = await fetch(uri, {
+		method: "POST",
+		headers: {
+			accept: "application/json",
+			"content-type": "application/json",
+			authorization: "Bearer " + spotifyApi.getAccessToken(),
+		},
+	});
+
+	let json = await response.json();
+	return json;
+}
 router.get("/create_playlist", async (req, res) => {
-	console.log(req.body);
 	const data = await createPlaylist(req.body.name);
 
 	res.send(data);
 });
+
+router.get("/addToPlaylist", async (req, res) => {
+	let playlistId = req.body.playlistId;
+	let songid = req.body.songId;
+	const data = await addToPlaylist(playlistId, songid);
+	console.log(playlistId, songid);
+	console.log(data);
+});
+
 router.get("/login", (req, res) => {
 	// @ts-ignore
 	const scopesstr =
