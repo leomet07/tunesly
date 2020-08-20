@@ -75,7 +75,19 @@ input:focus {
 
 #specification {
 	padding: 6px;
-	display: flex;
+	display: inline-flex;
 	flex-wrap: wrap;
 
+}
+
+@media only screen and (min-width: 700px) {
+	#specification {
+		width: 40%;
+		margin-top: 0;
+
+	}
+
+	.title {
+		margin-bottom: 0px;
+	}
 }

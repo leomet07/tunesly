@@ -41,7 +41,7 @@ class About extends React.Component<{}, AppState> {
 				<h3>
 					The backend "proxy" api is built with express and nodejs (in
 					the project github). The frontend is built with react and
-					react-router
+					react-router.
 				</h3>
 			</div>
 		);
