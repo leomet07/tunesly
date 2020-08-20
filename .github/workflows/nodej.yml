@@ -20,9 +20,13 @@ jobs:
                   uses: actions/setup-node@v1,
                   with: { node-version: "${{ matrix.node-version }}" },
               }
-            - { run: "cd client" }
-            - { run: "npm ci" }
-            - { run: "npm run build --if-present", env: { CI: true } }
+
+            - { run: "npm ci", working-directory: "./client" }
+            - {
+                  run: "npm run build --if-present",
+                  working-directory: "./client",
+                  env: { CI: true },
+              }
             - name: "Deploy to Firebase"
               uses: lowply/deploy-firebase@v0.0.2
               env:
