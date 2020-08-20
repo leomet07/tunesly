@@ -34,3 +34,4 @@ jobs:
                       FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}",
                       FIREBASE_PROJECT: mobile-momenta,
                   }
+              working-directory: ./client,
