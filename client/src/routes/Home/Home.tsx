@@ -8,12 +8,18 @@ interface AppState {
 	songs: any;
 	current_genre: string | null;
 	current_artist: string | null;
+	playlist_uri: string | null;
 }
 class Home extends React.Component<{}, AppState> {
 	constructor(props: any) {
 		super(props);
 		// Don't call this.setState() here!
-		this.state = { songs: [], current_genre: null, current_artist: null };
+		this.state = {
+			songs: [],
+			current_genre: null,
+			current_artist: null,
+			playlist_uri: null,
+		};
 	}
 	async componentDidMount() {
 		console.log("Mounted");
@@ -52,6 +58,21 @@ class Home extends React.Component<{}, AppState> {
 		let artist = String(e.target.value);
 
 		this.setState({ current_artist: artist });
+	};
+	export_to_playlist = async () => {
+		let response = await fetch(
+			window.global.BASE_URL + "/api/create_playlist_of_songs",
+			{
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify(this.state.songs),
+			}
+		);
+		let json: any = await response.json();
+
+		console.log(json.external_urls.spotify);
 	};
 	render() {
 		const songItems = this.state.songs.map((data: any) => {
@@ -107,9 +128,21 @@ class Home extends React.Component<{}, AppState> {
 							</div>
 						</div>
 					</div>
-					<button id="generate" onClick={this.get_songs}>
+					<button
+						className="mainbtn"
+						id="generate"
+						onClick={this.get_songs}
+					>
 						Generate Playlist!
 					</button>
+					<button
+						className="mainbtn"
+						id="export"
+						onClick={this.export_to_playlist}
+					>
+						Export to Playlist
+					</button>
+					{this.playlist_uri}
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>

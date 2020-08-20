@@ -2,6 +2,7 @@
 import express from "express";
 import fetch from "node-fetch";
 import * as dotenv from "dotenv";
+import { v1 as uuid } from "uuid";
 
 dotenv.config();
 // Based off of https://github.com/thelinmichael/spotify-web-api-node
@@ -41,9 +42,6 @@ console.log("The credentials are ", spotifyApi.getCredentials());
 // const time = 5 * 60 * 1000;
 const time: number = Number(process.env.TIME) || 2 * 1000;
 
-// Refreshal of token
-// console.log(spotifyApi.getAccessToken());
-
 async function refrshToken() {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
 	spotifyApi.refreshAccessToken().then(
@@ -77,7 +75,7 @@ function convert_uri(params: any) {
 		.join("&");
 }
 router.get("/get_songs", async (req, res) => {
-	console.log(req.query, spotifyApi.getAccessToken());
+	// console.log(req.query, spotifyApi.getAccessToken());
 	const seedGenres = req.query.seed_genres || "acoustic";
 	// Use genre as base
 	const routeParams: { [key: string]: any } = {
@@ -164,15 +162,18 @@ router.get("/callback", async (req, res) => {
 	);
 });
 
-async function createPlaylist(name: string) {
+async function createPlaylist(name: string | undefined = undefined) {
+	if (name == undefined) {
+		name = uuid();
+	}
 	// Create a private playlist
 	const body: any = JSON.stringify({
 		name,
-		description: "New playlist description",
-		public: false,
+		description: "Tunesly generated playlist",
+		public: true,
 	});
 	const response = await fetch(
-		"https://api.spotify.com/v1/users/mexfymds2uuxsrcpetxi4nqe9/playlists",
+		"https://api.spotify.com/v1/users/" + process.env.UID + "/playlists",
 		{
 			method: "POST",
 			headers: {
@@ -207,9 +208,39 @@ async function addToPlaylist(playlistId: string, songId: string) {
 	let json = await response.json();
 	return json;
 }
-router.get("/create_playlist", async (req, res) => {
-	const data = await createPlaylist(req.body.name);
 
+function addToPlaylistAsync(playlistId: string, songId: string) {
+	let uri =
+		"https://api.spotify.com/v1/playlists/" +
+		playlistId +
+		"/tracks?uris=spotify:track:" +
+		songId;
+	return fetch(uri, {
+		method: "POST",
+		headers: {
+			accept: "application/json",
+			"content-type": "application/json",
+			authorization: "Bearer " + spotifyApi.getAccessToken(),
+		},
+	});
+}
+
+router.post("/create_playlist_of_songs", async (req, res) => {
+	const data = await createPlaylist();
+
+	let body = req.body;
+	if (Array.isArray(body)) {
+		let requests = [];
+
+		for (const item of body) {
+			// get id
+			const songId = item.id;
+
+			requests.push(addToPlaylistAsync(data.id, songId));
+		}
+
+		await Promise.all(requests);
+	}
 	res.send(data);
 });
 
