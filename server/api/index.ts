@@ -17,8 +17,6 @@ const spotifyApi = new SpotifyWebApi({
 	redirectUri: process.env.redirectUri,
 });
 
-const scopes = ["user-read-private", "user-read-email"];
-
 if (process.env.refresh_token) {
 	console.log("Override token");
 	spotifyApi.setAccessToken(process.env.access_token);
@@ -166,9 +164,41 @@ router.get("/callback", async (req, res) => {
 	);
 });
 
+async function createPlaylist(name: string) {
+	// Create a private playlist
+	let body: any = JSON.stringify({
+		name: name,
+		description: "New playlist description",
+		public: false,
+	});
+	let response = await fetch(
+		"https://api.spotify.com/v1/users/mexfymds2uuxsrcpetxi4nqe9/playlists",
+		{
+			method: "POST",
+			headers: {
+				accept: "application/json",
+				"content-type": "application/json",
+				authorization: "Bearer " + spotifyApi.getAccessToken(),
+			},
+			body: body,
+		}
+	);
+
+	let data = await response.json();
+
+	return data;
+}
+
+router.get("/create_playlist", async (req, res) => {
+	console.log(req.body);
+	const data = await createPlaylist(req.body.name);
+
+	res.send(data);
+});
 router.get("/login", (req, res) => {
 	// @ts-ignore
-	const scopesstr = "user-read-private user-read-email";
+	const scopesstr =
+		"user-read-private user-read-email playlist-modify-public playlist-modify-private";
 	res.redirect(
 		"https://accounts.spotify.com/authorize" +
 			"?response_type=code" +

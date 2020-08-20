@@ -12,6 +12,8 @@ const app = express();
 
 app.use(cors()); // Use this after the variable declaration
 
+app.use(express.json());
+
 app.use(helmet());
 app.use(morgan("tiny"));
 
