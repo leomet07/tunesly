@@ -8,7 +8,7 @@ interface AppState {
 	songs: any;
 	current_genre: string | null;
 	current_artist: string | null;
-	playlist_uri: string | null;
+	playlist_uri: string | undefined;
 }
 class Home extends React.Component<{}, AppState> {
 	constructor(props: any) {
@@ -18,7 +18,7 @@ class Home extends React.Component<{}, AppState> {
 			songs: [],
 			current_genre: null,
 			current_artist: null,
-			playlist_uri: null,
+			playlist_uri: undefined,
 		};
 	}
 	async componentDidMount() {
@@ -71,7 +71,7 @@ class Home extends React.Component<{}, AppState> {
 			}
 		);
 		let json: any = await response.json();
-
+		this.setState({ playlist_uri: json.external_urls.spotify });
 		console.log(json.external_urls.spotify);
 	};
 	render() {
@@ -142,7 +142,15 @@ class Home extends React.Component<{}, AppState> {
 					>
 						Export to Playlist
 					</button>
-					{this.playlist_uri}
+					<h3>
+						<a
+							href={this.state.playlist_uri}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							{this.state.playlist_uri}
+						</a>
+					</h3>
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>
