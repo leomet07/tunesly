@@ -162,8 +162,8 @@ router.get("/callback", async (req, res) => {
 	);
 });
 
-async function createPlaylist(name: string | undefined = undefined) {
-	if (name == undefined) {
+async function createPlaylist(name?: string | undefined) {
+	if (name === undefined) {
 		name = uuid();
 	}
 	// Create a private playlist
@@ -191,12 +191,12 @@ async function createPlaylist(name: string | undefined = undefined) {
 }
 
 async function addToPlaylist(playlistId: string, songId: string) {
-	let uri =
+	const uri =
 		"https://api.spotify.com/v1/playlists/" +
 		playlistId +
 		"/tracks?uris=spotify:track:" +
 		songId;
-	let response = await fetch(uri, {
+	const response = await fetch(uri, {
 		method: "POST",
 		headers: {
 			accept: "application/json",
@@ -205,12 +205,12 @@ async function addToPlaylist(playlistId: string, songId: string) {
 		},
 	});
 
-	let json = await response.json();
+	const json = await response.json();
 	return json;
 }
 
 function addToPlaylistAsync(playlistId: string, songId: string) {
-	let uri =
+	const uri =
 		"https://api.spotify.com/v1/playlists/" +
 		playlistId +
 		"/tracks?uris=spotify:track:" +
@@ -228,9 +228,9 @@ function addToPlaylistAsync(playlistId: string, songId: string) {
 router.post("/create_playlist_of_songs", async (req, res) => {
 	const data = await createPlaylist();
 
-	let body = req.body;
+	const body = req.body;
 	if (Array.isArray(body)) {
-		let requests = [];
+		const requests = [];
 
 		for (const item of body) {
 			// get id
@@ -245,8 +245,8 @@ router.post("/create_playlist_of_songs", async (req, res) => {
 });
 
 router.get("/addToPlaylist", async (req, res) => {
-	let playlistId = req.body.playlistId;
-	let songid = req.body.songId;
+	const playlistId = req.body.playlistId;
+	const songid = req.body.songId;
 	const data = await addToPlaylist(playlistId, songid);
 	console.log(playlistId, songid);
 	console.log(data);
