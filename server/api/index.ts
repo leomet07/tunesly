@@ -166,12 +166,12 @@ router.get("/callback", async (req, res) => {
 
 async function createPlaylist(name: string) {
 	// Create a private playlist
-	let body: any = JSON.stringify({
-		name: name,
+	const body: any = JSON.stringify({
+		name,
 		description: "New playlist description",
 		public: false,
 	});
-	let response = await fetch(
+	const response = await fetch(
 		"https://api.spotify.com/v1/users/mexfymds2uuxsrcpetxi4nqe9/playlists",
 		{
 			method: "POST",
@@ -180,11 +180,11 @@ async function createPlaylist(name: string) {
 				"content-type": "application/json",
 				authorization: "Bearer " + spotifyApi.getAccessToken(),
 			},
-			body: body,
+			body,
 		}
 	);
 
-	let data = await response.json();
+	const data = await response.json();
 
 	return data;
 }
