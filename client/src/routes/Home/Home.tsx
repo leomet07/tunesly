@@ -9,6 +9,7 @@ interface AppState {
 	current_genre: string | null;
 	current_artist: string | null;
 	playlist_uri: string | undefined;
+	current_track: string | null;
 }
 class Home extends React.Component<{}, AppState> {
 	constructor(props: any) {
@@ -19,6 +20,7 @@ class Home extends React.Component<{}, AppState> {
 			current_genre: null,
 			current_artist: null,
 			playlist_uri: undefined,
+			current_track: null,
 		};
 	}
 	async componentDidMount() {
@@ -35,8 +37,14 @@ class Home extends React.Component<{}, AppState> {
 		}
 		if (this.state.current_artist) {
 			uri = uri + "artist_name=" + this.state.current_artist + "&";
-			console.log("artist  found", uri);
+			console.log("artist found", uri);
 		}
+
+		if (this.state.current_track) {
+			uri = uri + "track_name=" + this.state.current_track + "&";
+			console.log("track found", uri);
+		}
+
 		let res = await fetch(uri);
 
 		res = await res.json();
@@ -58,6 +66,12 @@ class Home extends React.Component<{}, AppState> {
 		let artist = String(e.target.value);
 
 		this.setState({ current_artist: artist });
+	};
+	changeTrack = async (e: any) => {
+		// @ts-ignore
+		let track = String(e.target.value);
+
+		this.setState({ current_track: track });
 	};
 	export_to_playlist = async () => {
 		let response = await fetch(
@@ -126,6 +140,13 @@ class Home extends React.Component<{}, AppState> {
 									type="text"
 								></input>
 							</div>
+							<div className="spec_choose" id="artist_name">
+								<h5 className="label">Enter an Track</h5>
+								<input
+									onChange={this.changeTrack}
+									type="text"
+								></input>
+							</div>
 						</div>
 					</div>
 					<button
@@ -140,9 +161,9 @@ class Home extends React.Component<{}, AppState> {
 						id="export"
 						onClick={this.export_to_playlist}
 					>
-						Export to Playlist
+						Export to Spotify
 					</button>
-					<h3>
+					<h3 className="wraptext">
 						<a
 							href={this.state.playlist_uri}
 							rel="noopener noreferrer"

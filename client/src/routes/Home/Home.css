@@ -91,3 +91,7 @@ input:focus {
 		margin-bottom: 0px;
 	}
 }
+
+.wraptext {
+	word-wrap: break-word;
+}
