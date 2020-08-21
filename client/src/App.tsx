@@ -3,7 +3,9 @@ import "./App.css";
 import Home from "./routes/Home/Home";
 import About from "./routes/About/About";
 // @ts-ignore
+import firebase from "./firebase";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+firebase.analytics();
 
 interface AppState {
 	songs: any;
