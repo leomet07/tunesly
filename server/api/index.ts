@@ -6,12 +6,10 @@ import { v1 as uuid } from "uuid";
 
 dotenv.config();
 // Based off of https://github.com/thelinmichael/spotify-web-api-node
+
 // @ts-ignore
 import SpotifyWebApi from "spotify-web-api-node";
-// let SpotifyWebApi = require("spotify-web-api-node");
-// credentials are optional
-// let spotifyApi = new SpotifyWebApi({});
-// credentials are optional
+
 const spotifyApi = new SpotifyWebApi({
 	clientId: process.env.clientId,
 	clientSecret: process.env.clientSecret,
@@ -107,7 +105,31 @@ router.get("/get_songs", async (req, res) => {
 		const artistId: string = json.artists.items[0].id;
 		routeParams.seed_artists = artistId;
 	}
-	console.log(routeParams);
+
+	if (req.query.track_name) {
+		// Get track ID
+		const response = await fetch(
+			"https://api.spotify.com/v1/search?q=" +
+				req.query.track_name +
+				"&type=track",
+			{
+				method: "GET",
+				headers: {
+					accept: "application/json",
+					"content-type": "application/json",
+					authorization: "Bearer " + spotifyApi.getAccessToken(),
+				},
+			}
+		);
+
+		const json = await response.json();
+
+		const trackId = json.tracks.items[0].id;
+		console.log("Track id: " + trackId);
+
+		routeParams.seed_tracks = trackId;
+	}
+	console.log("route params: ", routeParams);
 	const uri: string =
 		"https://api.spotify.com/v1/recommendations?" +
 		convert_uri(routeParams);
