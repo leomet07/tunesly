@@ -14,6 +14,10 @@ class About extends React.Component<{}, AppState> {
 		return (
 			<div className="App">
 				<h1>About</h1>
+				<h2>
+					This app is not monitizable at all, with 0 profit (not for
+					profit)
+				</h2>
 				<h3>
 					This is a spotify playlist/song generator, built on top of
 					their extensive databases through their api.

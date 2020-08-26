@@ -14,7 +14,7 @@ window.global = window.global || {};
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 	console.log("Dev");
-	window.global.BASE_URL = "http://localhost:3000";
+	window.global.BASE_URL = "http://localhost:4000";
 } else {
 	// production code
 	console.log("Production");

@@ -38,7 +38,7 @@ if (process.env.refresh_token) {
 console.log("The credentials are ", spotifyApi.getCredentials());
 
 // const time = 5 * 60 * 1000;
-const time: number = Number(process.env.TIME) || 2 * 1000;
+const time: number = Number(process.env.TIME) || 60 * 1000 * 5;
 
 async function refrshToken() {
 	// clientId, clientSecret and refreshToken has been set on the api object previous to this call.
