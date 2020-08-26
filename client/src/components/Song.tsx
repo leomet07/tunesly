@@ -25,19 +25,18 @@ class Song extends React.Component<{ song: any }, AppState> {
 			artist_str = artist_str + name;
 		}
 		return (
-			<div className="song">
+			<li className="song">
+				<img alt="" className="song_img item" src={img_uri} />
 				<a
-					className="song_name"
+					className="song_name item"
 					target="_blank"
 					rel="noopener noreferrer"
 					href={this.props.song.external_urls.spotify}
 				>
 					{this.props.song.name}
 				</a>
-				<h5>{artist_str}</h5>
-
-				<img alt="" src={img_uri} />
-			</div>
+				<h5 className="item">{artist_str}</h5>
+			</li>
 		);
 	}
 }

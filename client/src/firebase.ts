@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/analytics";
 const firebaseConfig = {
 	apiKey: "AIzaSyCtkW6cU5PtbDGmoOLrjvvtmiqeJMqzkXU",
 	authDomain: "credit-card-a9b78.firebaseapp.com",

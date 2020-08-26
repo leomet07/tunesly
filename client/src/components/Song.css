@@ -1,11 +1,26 @@
 .song {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	margin: 5px;
 	padding: 5px;
-
+	text-align: center;
+	display: inline-block;
+	box-shadow: 5px 10px 8px #888888;
 }
 
 .song_name {
 	font-size: 17px;
 	color: black;
+}
+
+.song_img {
+	width: 60px;
+}
+
+h5 {
+	display: inline-block
+}
+
+.item {
+	vertical-align: middle;
+	margin: 10px;
 }

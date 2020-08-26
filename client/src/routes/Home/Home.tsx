@@ -160,19 +160,20 @@ class Home extends React.Component<{}, AppState> {
 					>
 						Export to Spotify
 					</button>
-					<h3 className="wraptext">
-						<a
-							href={this.state.playlist_uri}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							{this.state.playlist_uri}
-						</a>
-					</h3>
 				</div>
 				<h1 className="title_desktop">{title}</h1>
+				<h3 className="wraptext">
+					<a
+						href={this.state.playlist_uri}
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						{this.state.playlist_uri}
+					</a>
+				</h3>
 				<main id="container">
 					<h1 className="title_mobile">{title}</h1>
+
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>

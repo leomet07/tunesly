@@ -3,11 +3,12 @@
 }
 
 #songs {
-	display: grid;
-	/* flex-wrap: wrap; */
+	/* display: grid;
+	
 	gap: 1rem;
 	grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
 	padding: auto;
+	*/
 }
 
 .title {
@@ -105,14 +106,16 @@ input:focus {
 	.sidenav {
 		width: 18rem;
 		position: fixed;
-		height: 100vh;
+		height: 45vh;
 		overflow: hidden;
 		padding-left: 0px;
 		margin-left: 0px;
+		border-right: 1px solid #999999;
 	}
 
 	#container {
 		margin-left: 18rem;
+		margin-right: 18rem;
 		padding: 1rem;
 
 	}
@@ -123,6 +126,10 @@ input:focus {
 
 	.title_mobile {
 		display: none;
+	}
+
+	.song {
+		width: 40%;
 	}
 
 }
