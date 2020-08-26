@@ -22,7 +22,7 @@ Run the server once (basic functionality wont be there, only authentication).
 
 -   Add the redirect URI (http://127.0.0.1:4000/api/callback) under the application's settings "Redirect URIs" tab and save.
 
--   Kill the server and restart it
+-   Start the server (see below)
 
 -   Go to [http://127.0.0.1:4000/api/login](http://127.0.0.1:4000/api/login) and login.
 
@@ -30,7 +30,7 @@ Run the server once (basic functionality wont be there, only authentication).
 
 -   Add the UID of the Account issuing the clientId and ClientSecret (the account that is the owner of the spotify api app) into the .env
 
--   Start the server
+-   Kill the server and restart it.
 
 To install dependecies
 
@@ -38,7 +38,7 @@ To install dependecies
 
 `npm install`
 
-To Start Server
+To Start Server (dependecies must be installed)
 
 `npm start` to start the server
 
