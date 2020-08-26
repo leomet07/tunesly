@@ -80,6 +80,10 @@ input:focus {
 
 }
 
+.title_desktop {
+	display: none;
+}
+
 @media only screen and (min-width: 700px) {
 	#specification {
 		width: 40%;
@@ -90,6 +94,37 @@ input:focus {
 	.title {
 		margin-bottom: 0px;
 	}
+
+	#specification {
+		padding: 6px;
+		display: inline;
+		flex-wrap: wrap;
+
+	}
+
+	.sidenav {
+		width: 18rem;
+		position: fixed;
+		height: 100vh;
+		overflow: hidden;
+		padding-left: 0px;
+		margin-left: 0px;
+	}
+
+	#container {
+		margin-left: 18rem;
+		padding: 1rem;
+
+	}
+
+	.title_desktop {
+		display: inline-block;
+	}
+
+	.title_mobile {
+		display: none;
+	}
+
 }
 
 .wraptext {

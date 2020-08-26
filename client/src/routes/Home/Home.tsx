@@ -89,6 +89,7 @@ class Home extends React.Component<{}, AppState> {
 		console.log(json.external_urls.spotify);
 	};
 	render() {
+		const title = "Playlist generator";
 		const songItems = this.state.songs.map((data: any) => {
 			let uri = data.external_urls.spotify;
 
@@ -112,43 +113,39 @@ class Home extends React.Component<{}, AppState> {
 
 		return (
 			<div className="App">
-				<main id="container">
-					<h1 className="title">Playlist generator</h1>
-					<div className="wrapper">
-						<div id="specification">
-							<form
-								id="genre_select"
-								className="spec_choose"
-								action="#"
+				<div className="sidenav">
+					<div id="specification">
+						<form
+							id="genre_select"
+							className="spec_choose"
+							action="#"
+						>
+							<h5 className="label">Choose a genre:</h5>
+							<select
+								onChange={this.changeGenre}
+								id="genres"
+								name="genres"
 							>
-								<h5 className="label">Choose a genre:</h5>
-								<select
-									onChange={this.changeGenre}
-									id="genres"
-									name="genres"
-								>
-									{options}
-								</select>
-								<br />
-							</form>
-							<div className="spec_choose" id="artist_name">
-								<h5 className="label">
-									Enter an artist's name
-								</h5>
-								<input
-									onChange={this.changeArtist}
-									type="text"
-								></input>
-							</div>
-							<div className="spec_choose" id="artist_name">
-								<h5 className="label">Enter an Track</h5>
-								<input
-									onChange={this.changeTrack}
-									type="text"
-								></input>
-							</div>
+								{options}
+							</select>
+							<br />
+						</form>
+						<div className="spec_choose" id="artist_name">
+							<h5 className="label">Enter an artist's name</h5>
+							<input
+								onChange={this.changeArtist}
+								type="text"
+							></input>
+						</div>
+						<div className="spec_choose" id="artist_name">
+							<h5 className="label">Enter an Track</h5>
+							<input
+								onChange={this.changeTrack}
+								type="text"
+							></input>
 						</div>
 					</div>
+
 					<button
 						className="mainbtn"
 						id="generate"
@@ -172,6 +169,10 @@ class Home extends React.Component<{}, AppState> {
 							{this.state.playlist_uri}
 						</a>
 					</h3>
+				</div>
+				<h1 className="title_desktop">{title}</h1>
+				<main id="container">
+					<h1 className="title_mobile">{title}</h1>
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>
