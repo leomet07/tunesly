@@ -1,6 +1,10 @@
 # Server
 
-## Setup the .env file in the server directory
+### A running instance of this exact server is [https://playlistgeneratorbackend.herokuapp.com](https://playlistgeneratorbackend.herokuapp.com)
+
+## If you want to run the server locally on your machine for development, follow the instructions below
+
+### Setup the .env file in the server directory
 
 (Nodejs 12+ and npm 6+ must be installed)
 
@@ -28,13 +32,17 @@ Run the server once (basic functionality wont be there, only authentication).
 
 -   Start the server
 
-To use run
+To install dependecies
 
 `npm i -g typesript`
 
 `npm install`
 
-To Start
+To Start Server
+
+`npm start` to start the server
+
+To Start Server for development
 
 `npm run watch` for the live typescript compiler.
 
