@@ -4,7 +4,7 @@
 	padding: 5px;
 	text-align: center;
 	display: inline-block;
-	box-shadow: 5px 10px 8px #888888;
+	box-shadow: 5px 10px 8px #d1d1d1;
 }
 
 .song_name {
@@ -13,7 +13,7 @@
 }
 
 .song_img {
-	width: 60px;
+	width: 100px;
 }
 
 h5 {

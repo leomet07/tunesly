@@ -90,7 +90,11 @@ class Home extends React.Component<{}, AppState> {
 	};
 	render() {
 		const title = "Playlist generator";
+
+		let total_playlist_length = 0;
 		const songItems = this.state.songs.map((data: any) => {
+			total_playlist_length += data.duration_ms;
+
 			let uri = data.external_urls.spotify;
 
 			uri = uri.split("/");
@@ -102,6 +106,15 @@ class Home extends React.Component<{}, AppState> {
 			);
 		});
 
+		const total_seconds = total_playlist_length / 1000;
+		const total_length_element = (
+			<h3>
+				{total_seconds > 100
+					? String(Math.round(total_seconds / 60)) + " minutes "
+					: String(Math.round(total_seconds)) + " seconds "}
+				long
+			</h3>
+		);
 		const options = genres.map((data: string) => {
 			const dataTitle = data.charAt(0).toUpperCase() + data.slice(1);
 			return (
@@ -113,7 +126,7 @@ class Home extends React.Component<{}, AppState> {
 
 		return (
 			<div className="App">
-				<div className="sidenav">
+				<div className="leftnav">
 					<div id="specification">
 						<form
 							id="genre_select"
@@ -161,16 +174,20 @@ class Home extends React.Component<{}, AppState> {
 						Export to Spotify
 					</button>
 				</div>
+				<div className="rightnav">
+					<div>{total_length_element}</div>
+					<h3 className="wraptext">
+						<a
+							href={this.state.playlist_uri}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							{this.state.playlist_uri ? "Link to Spotify" : ""}
+						</a>
+					</h3>
+				</div>
 				<h1 className="title_desktop">{title}</h1>
-				<h3 className="wraptext">
-					<a
-						href={this.state.playlist_uri}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{this.state.playlist_uri}
-					</a>
-				</h3>
+
 				<main id="container">
 					<h1 className="title_mobile">{title}</h1>
 

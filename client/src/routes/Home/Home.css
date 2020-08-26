@@ -67,7 +67,8 @@
 #artist_name input[type='text'] {
 	margin: 0;
 	font-size: 16px;
-	border: 1px solid black;
+	border: none;
+	border-bottom: 1px solid black;
 }
 
 input:focus {
@@ -85,7 +86,7 @@ input:focus {
 	display: none;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 10px) {
 	#specification {
 		width: 40%;
 		margin-top: 0;
@@ -103,7 +104,7 @@ input:focus {
 
 	}
 
-	.sidenav {
+	.leftnav {
 		width: 18rem;
 		position: fixed;
 		height: 45vh;
@@ -111,6 +112,19 @@ input:focus {
 		padding-left: 0px;
 		margin-left: 0px;
 		border-right: 1px solid #999999;
+	}
+
+	.rightnav {
+		width: 18rem;
+		position: fixed;
+		height: 45vh;
+		overflow: hidden;
+		padding-right: 0px;
+		margin-right: 0px;
+		border-left: 1px solid #999999;
+		margin-left: calc(100% - 18rem);
+
+
 	}
 
 	#container {
@@ -130,6 +144,8 @@ input:focus {
 
 	.song {
 		width: 40%;
+		min-width: 400px;
+
 	}
 
 }
