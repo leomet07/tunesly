@@ -87,7 +87,7 @@ input:focus {
 	display: none;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1090px) {
 	#specification {
 		width: 40%;
 		margin-top: 0;
@@ -144,7 +144,7 @@ input:focus {
 	}
 
 	.song {
-		width: 40%;
+		width: 90%;
 		min-width: 400px;
 
 	}
@@ -157,4 +157,20 @@ input:focus {
 
 .subtitle {
 	color: rgb(12, 4, 41);
+}
+
+#songs {
+	overflow-y: scroll;
+	height: 70vh;
+	width: 30vw;
+	display: inline-block;
+	-ms-overflow-style: none;
+	/* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#songs::-webkit-scrollbar {
+	display: none;
 }
