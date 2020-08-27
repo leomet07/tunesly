@@ -129,6 +129,9 @@ router.get("/get_songs", async (req, res) => {
 
 		routeParams.seed_tracks = trackId;
 	}
+	if (req.query.playlist_length) {
+		routeParams.limit = req.query.playlist_length;
+	}
 	console.log("route params: ", routeParams);
 	const uri: string =
 		"https://api.spotify.com/v1/recommendations?" +
