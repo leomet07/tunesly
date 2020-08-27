@@ -127,6 +127,9 @@ class Home extends React.Component<{}, AppState> {
 		return (
 			<div className="App">
 				<div className="leftnav">
+					<h2 className="subtitle">
+						Playlist Generation Specification
+					</h2>
 					<div id="specification">
 						<form
 							id="genre_select"
@@ -175,6 +178,7 @@ class Home extends React.Component<{}, AppState> {
 					</button>
 				</div>
 				<div className="rightnav">
+					<h2 className="subtitle">Playlist Information</h2>
 					<div>{total_length_element}</div>
 					<h3 className="wraptext">
 						<a
@@ -191,6 +195,11 @@ class Home extends React.Component<{}, AppState> {
 				<main id="container">
 					<h1 className="title_mobile">{title}</h1>
 
+					{songItems.length > 0 ? (
+						<h3 className="subtitle">Your generated playlist:</h3>
+					) : (
+						<div></div>
+					)}
 					<div id="songs">{songItems}</div>
 				</main>
 			</div>

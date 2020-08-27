@@ -86,7 +86,7 @@ input:focus {
 	display: none;
 }
 
-@media only screen and (min-width: 10px) {
+@media only screen and (min-width: 1000px) {
 	#specification {
 		width: 40%;
 		margin-top: 0;
@@ -152,4 +152,8 @@ input:focus {
 
 .wraptext {
 	word-wrap: break-word;
+}
+
+.subtitle {
+	color: rgb(12, 4, 41);
 }
