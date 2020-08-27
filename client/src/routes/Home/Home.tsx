@@ -10,6 +10,7 @@ interface AppState {
 	current_artist: string | null;
 	playlist_uri: string | undefined;
 	current_track: string | null;
+	current_playlist_length: number | null;
 }
 class Home extends React.Component<{}, AppState> {
 	constructor(props: any) {
@@ -21,6 +22,7 @@ class Home extends React.Component<{}, AppState> {
 			current_artist: null,
 			playlist_uri: undefined,
 			current_track: null,
+			current_playlist_length: null,
 		};
 	}
 	async componentDidMount() {
@@ -43,6 +45,14 @@ class Home extends React.Component<{}, AppState> {
 		if (this.state.current_track) {
 			uri = uri + "track_name=" + this.state.current_track + "&";
 			console.log("track found", uri);
+		}
+		if (this.state.current_playlist_length) {
+			uri =
+				uri +
+				"playlist_length=" +
+				String(this.state.current_playlist_length) +
+				"&";
+			console.log("length found", uri);
 		}
 
 		let res = await fetch(uri);
@@ -72,6 +82,15 @@ class Home extends React.Component<{}, AppState> {
 		let track = String(e.target.value);
 
 		this.setState({ current_track: track });
+	};
+	changePlaylistLength = async (e: any) => {
+		// @ts-ignore
+		let length = Number(e.target.value);
+		if (length < 1) {
+			length = 1;
+		}
+		console.log("Playlist length", length);
+		this.setState({ current_playlist_length: length });
 	};
 	export_to_playlist = async () => {
 		let response = await fetch(
@@ -105,6 +124,9 @@ class Home extends React.Component<{}, AppState> {
 				</div>
 			);
 		});
+
+		const playlistlength = this.state.songs.length;
+		const playlistlengthelement = <h3>{playlistlength} songs long</h3>;
 
 		const total_seconds = total_playlist_length / 1000;
 		const total_length_element = (
@@ -160,6 +182,16 @@ class Home extends React.Component<{}, AppState> {
 								type="text"
 							></input>
 						</div>
+						<div className="spec_choose" id="length_select">
+							<h5 className="label">
+								Enter the playlist's length
+							</h5>
+							<input
+								onChange={this.changePlaylistLength}
+								type="number"
+								min="1"
+							></input>
+						</div>
 					</div>
 
 					<button
@@ -180,6 +212,7 @@ class Home extends React.Component<{}, AppState> {
 				<div className="rightnav">
 					<h2 className="subtitle">Playlist Information</h2>
 					<div>{total_length_element}</div>
+					<div>{playlistlengthelement}</div>
 					<h3 className="wraptext">
 						<a
 							href={this.state.playlist_uri}

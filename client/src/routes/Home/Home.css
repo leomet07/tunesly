@@ -64,7 +64,8 @@
 	border-color: #6c757d
 }
 
-#artist_name input[type='text'] {
+.spec_choose input[type='text'],
+.spec_choose input[type='number'] {
 	margin: 0;
 	font-size: 16px;
 	border: none;
@@ -107,7 +108,7 @@ input:focus {
 	.leftnav {
 		width: 18rem;
 		position: fixed;
-		height: 45vh;
+		height: 60vh;
 		overflow: hidden;
 		padding-left: 0px;
 		margin-left: 0px;
@@ -117,8 +118,8 @@ input:focus {
 	.rightnav {
 		width: 18rem;
 		position: fixed;
-		height: 45vh;
-		overflow: hidden;
+		height: 60vh;
+
 		padding-right: 0px;
 		margin-right: 0px;
 		border-left: 1px solid #999999;
