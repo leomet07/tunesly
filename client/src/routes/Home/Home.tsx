@@ -183,9 +183,7 @@ class Home extends React.Component<{}, AppState> {
 							></input>
 						</div>
 						<div className="spec_choose" id="length_select">
-							<h5 className="label">
-								Enter the playlist's length
-							</h5>
+							<h5 className="label">Enter number of songs</h5>
 							<input
 								onChange={this.changePlaylistLength}
 								type="number"
@@ -226,8 +224,6 @@ class Home extends React.Component<{}, AppState> {
 				<h1 className="title_desktop">{title}</h1>
 
 				<main id="container">
-					<h1 className="title_mobile">{title}</h1>
-
 					{songItems.length > 0 ? (
 						<h3 className="subtitle">Your generated playlist:</h3>
 					) : (
