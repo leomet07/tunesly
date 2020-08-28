@@ -87,6 +87,10 @@ input:focus {
 	display: none;
 }
 
+#songs {
+	width: 80vw;
+}
+
 @media only screen and (min-width: 1090px) {
 	#specification {
 		width: 40%;
@@ -143,12 +147,11 @@ input:focus {
 		display: none;
 	}
 
-	.song {
-		width: 90%;
-		min-width: 400px;
 
+
+	#songs {
+		width: 40vw;
 	}
-
 }
 
 .wraptext {
@@ -162,7 +165,7 @@ input:focus {
 #songs {
 	overflow-y: scroll;
 	height: 70vh;
-	width: 30vw;
+
 	display: inline-block;
 
 	/* Firefox */
@@ -179,4 +182,9 @@ input:focus {
 
 #songs::-webkit-scrollbar-thumb {
 	background: #959cff;
+}
+
+.song {
+	width: 90%;
+
 }
