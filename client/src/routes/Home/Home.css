@@ -16,7 +16,6 @@
 	margin-bottom: 50px;
 }
 
-
 .spec_choose {
 	font-size: 26px;
 	/* border: 1px solid black; */
@@ -25,7 +24,8 @@
 	padding-top: 0;
 }
 
-#genre_select {}
+#genre_select {
+}
 
 #genre_select select {
 	font-size: 1rem;
@@ -37,35 +37,33 @@
 	margin: 0;
 }
 
-
 #genre_select .submit {
 	font-size: 1rem;
 	border: 1px solid black;
 	padding: 7px 7px 7px 7px;
 }
 
-#genres {}
+#genres {
+}
 
 .mainbtn {
 	font-size: 17px;
 	color: white;
-	background-color: #007Bff;
+	background-color: #007bff;
 	border: none;
 	border-radius: 5px;
 	margin: 5px;
 	padding: 10px 10px 10px 10px;
-
 }
-
 
 .btn-secondary {
 	color: #fff;
 	background-color: #6c757d;
-	border-color: #6c757d
+	border-color: #6c757d;
 }
 
-.spec_choose input[type='text'],
-.spec_choose input[type='number'] {
+.spec_choose input[type="text"],
+.spec_choose input[type="number"] {
 	margin: 0;
 	font-size: 16px;
 	border: none;
@@ -80,7 +78,8 @@ input:focus {
 	padding: 6px;
 	display: inline-flex;
 	flex-wrap: wrap;
-
+	margin-right: 7px;
+	margin-left: 7px;
 }
 
 .title_desktop {
@@ -95,7 +94,6 @@ input:focus {
 	#specification {
 		width: 40%;
 		margin-top: 0;
-
 	}
 
 	.title {
@@ -106,7 +104,7 @@ input:focus {
 		padding: 6px;
 		display: inline;
 		flex-wrap: wrap;
-
+		border: none;
 	}
 
 	.leftnav {
@@ -125,18 +123,15 @@ input:focus {
 		height: 60vh;
 
 		padding-right: 0px;
-		margin-right: 0px;
+
 		border-left: 1px solid #999999;
 		margin-left: calc(100% - 18rem);
-
-
 	}
 
 	#container {
 		margin-left: 18rem;
 		margin-right: 18rem;
 		padding: 1rem;
-
 	}
 
 	.title_desktop {
@@ -147,19 +142,31 @@ input:focus {
 		display: none;
 	}
 
-
-
 	#songs {
 		width: 35vw;
 	}
 }
 
+/* for mobile */
+@media only screen and (max-width: 640px) {
+	.rightnav {
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
+		margin-right: 25px;
+		margin-left: 25px;
+		margin-top: 25px;
+	}
+}
 .wraptext {
 	word-wrap: break-word;
 }
 
 .subtitle {
 	color: rgb(12, 4, 41);
+}
+
+#your_playlist_title {
+	margin-top: 55px;
 }
 
 #songs {
@@ -173,12 +180,8 @@ input:focus {
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 #songs::-webkit-scrollbar {
-
 	width: 0.25rem;
 }
-
-
-
 
 #songs::-webkit-scrollbar-thumb {
 	background: #959cff;
@@ -186,5 +189,4 @@ input:focus {
 
 .song {
 	width: 90%;
-
 }

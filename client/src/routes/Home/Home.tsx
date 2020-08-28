@@ -208,7 +208,9 @@ class Home extends React.Component<{}, AppState> {
 					</button>
 				</div>
 				<div className="rightnav">
-					<h2 className="subtitle">Playlist Information</h2>
+					<h2 id="info_title" className="subtitle">
+						Playlist Information
+					</h2>
 					<div>{total_length_element}</div>
 					<div>{playlistlengthelement}</div>
 					<h3 className="wraptext">
@@ -225,7 +227,9 @@ class Home extends React.Component<{}, AppState> {
 
 				<main id="container">
 					{songItems.length > 0 ? (
-						<h3 className="subtitle">Your generated playlist:</h3>
+						<h3 className="subtitle" id="your_playlist_title">
+							Your generated playlist:
+						</h3>
 					) : (
 						<div></div>
 					)}

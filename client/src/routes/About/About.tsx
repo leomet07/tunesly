@@ -13,11 +13,12 @@ class About extends React.Component<{}, AppState> {
 	render() {
 		return (
 			<div className="App">
-				<h1>About</h1>
-				<h2>
+				<h1 className="about_subtitle">About</h1>
+				<h2 id="non_profit">
 					This app is not monitizable at all, with 0 profit (not for
 					profit)
 				</h2>
+				<h3>This was built for Tech With Tim's august code jam.</h3>
 				<h3>
 					This is a spotify playlist/song generator, built on top of
 					their extensive databases through their api.
@@ -31,7 +32,7 @@ class About extends React.Component<{}, AppState> {
 					.
 				</h3>
 
-				<h2>Founding Reasons</h2>
+				<h2 className="about_subtitle">Founding Reasons</h2>
 				<h3>
 					We had noticed that music is something everyone loves, but
 					our own unique specific tastes make having a large playlist
@@ -41,7 +42,7 @@ class About extends React.Component<{}, AppState> {
 					This is a generator for highly specified and customizable
 					playlists.
 				</h3>
-				<h2>Underlying Technology</h2>
+				<h2 className="about_subtitle">Underlying Technology</h2>
 				<h3>
 					The backend "proxy" api is built with express and nodejs (in
 					the project github). The frontend is built with react and
