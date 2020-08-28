@@ -22,7 +22,9 @@ Follow the instructions in the server/ and client/ folders.
 
 ## If the instructions are too complicated, visit the website [tunesly.net](https://tunesly.net)
 
-## Author
+<br>
+
+## Authors:
 
 👤 **leomet07**
 
