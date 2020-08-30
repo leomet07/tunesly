@@ -97,7 +97,10 @@ router.get("/get_songs", async (req, res) => {
 
 		const json: any = await response.json();
 
-		const artistGenres: string[] = json.artists.items[0].genres;
+		const artistGenres: string[] = json.artists.items[0].genres.splice(
+			0,
+			3
+		);
 
 		const uriArtistGenres: string = "," + artistGenres.join(",");
 		routeParams.seed_genres = routeParams.seed_genres + uriArtistGenres;
