@@ -99,7 +99,7 @@ router.get("/get_songs", async (req, res) => {
 
 		const artistGenres: string[] = json.artists.items[0].genres.splice(
 			0,
-			3
+			2
 		);
 
 		const uriArtistGenres: string = "," + artistGenres.join(",");
@@ -201,7 +201,9 @@ async function createPlaylist(name?: string | undefined) {
 		public: true,
 	});
 	const response = await fetch(
-		"https://api.spotify.com/v1/users/" + process.env.UID + "/playlists",
+		"https://api.spotify.com/v1/users/" +
+			process.env.BOT_UID +
+			"/playlists",
 		{
 			method: "POST",
 			headers: {
