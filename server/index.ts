@@ -12,7 +12,8 @@ const app = express();
 
 app.use(cors()); // Use this after the variable declaration
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
 
 app.use(helmet());
 app.use(morgan("tiny"));
