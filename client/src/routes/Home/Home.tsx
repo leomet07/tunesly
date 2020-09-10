@@ -231,7 +231,12 @@ class Home extends React.Component<{}, AppState> {
 							Your generated playlist:
 						</h3>
 					) : (
-						<div></div>
+						<div>
+							<h3>
+								If a playlist doesn't appear soon, reload the
+								page.
+							</h3>
+						</div>
 					)}
 					<div id="songs">{songItems}</div>
 				</main>
