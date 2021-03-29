@@ -145,6 +145,9 @@ input:focus {
 	#songs {
 		width: 35vw;
 	}
+	.loading_gif {
+		width: 150px;
+	}
 }
 
 /* for mobile */
@@ -155,6 +158,9 @@ input:focus {
 		margin-right: 25px;
 		margin-left: 25px;
 		margin-top: 25px;
+	}
+	.loading_gif {
+		width: 50%;
 	}
 }
 .wraptext {

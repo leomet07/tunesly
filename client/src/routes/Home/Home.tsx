@@ -108,7 +108,7 @@ class Home extends React.Component<{}, AppState> {
 		console.log(json.external_urls.spotify);
 	};
 	render() {
-		const title = "Playlist generator";
+		const title = "Tunesly";
 
 		let total_playlist_length = 0;
 		const songItems = this.state.songs.map((data: any) => {
@@ -211,17 +211,27 @@ class Home extends React.Component<{}, AppState> {
 					<h2 id="info_title" className="subtitle">
 						Playlist Information
 					</h2>
-					<div>{total_length_element}</div>
-					<div>{playlistlengthelement}</div>
-					<h3 className="wraptext">
-						<a
-							href={this.state.playlist_uri}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							{this.state.playlist_uri ? "Link to Spotify" : ""}
-						</a>
-					</h3>
+					{songItems.length > 0 ? (
+						<div>
+							<div>{total_length_element}</div>
+							<div>{playlistlengthelement}</div>
+							<h3 className="wraptext">
+								<a
+									href={this.state.playlist_uri}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									{this.state.playlist_uri
+										? "Link to Spotify"
+										: ""}
+								</a>
+							</h3>
+						</div>
+					) : (
+						<div>
+							<h3>No generated playlist yet!</h3>
+						</div>
+					)}
 				</div>
 				<h1 className="title_desktop">{title}</h1>
 
@@ -232,9 +242,14 @@ class Home extends React.Component<{}, AppState> {
 						</h3>
 					) : (
 						<div>
+							<img
+								className="loading_gif"
+								src="/loading.gif"
+								alt="Loading..."
+							></img>
 							<h3>
-								If a playlist doesn't appear soon, reload the
-								page.
+								If a playlist doesn't appear within 30 seconds,
+								reload the page.
 							</h3>
 						</div>
 					)}
