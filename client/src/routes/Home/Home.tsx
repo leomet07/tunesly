@@ -237,9 +237,12 @@ class Home extends React.Component<{}, AppState> {
 
 				<main id="container">
 					{songItems.length > 0 ? (
-						<h3 className="subtitle" id="your_playlist_title">
-							Your generated playlist:
-						</h3>
+						<div>
+							<h3 className="subtitle" id="your_playlist_title">
+								Your generated playlist:
+							</h3>
+							<div id="songs">{songItems}</div>
+						</div>
 					) : (
 						<div>
 							<img
@@ -253,7 +256,6 @@ class Home extends React.Component<{}, AppState> {
 							</h3>
 						</div>
 					)}
-					<div id="songs">{songItems}</div>
 				</main>
 			</div>
 		);
