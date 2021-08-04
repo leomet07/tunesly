@@ -32,5 +32,5 @@ jobs:
               env:
                   {
                       FIREBASE_TOKEN: "${{ secrets.FIREBASE_TOKEN }}",
-                      FIREBASE_PROJECT: credit-card-a9b78,
+                      FIREBASE_PROJECT: tuneslysite,
                   }
